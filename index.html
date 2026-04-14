@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RM to TK Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      width: 340px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 22px;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #ff4d4d, #ffcc00, #00c3ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+    h2 {
+      margin-bottom: 15px;
+      font-size: 16px;
+      color: #333;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background: linear-gradient(90deg, #ff4d4d, #ff9966);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #1e3c72;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>MARS Express Wholesale Pricing</h1>
+  <h2>RM → TK Calculator (+8%)</h2>
+
+  <input type="number" id="rm" placeholder="Enter RM amount" />
+  <input type="number" id="rate" value="32" placeholder="Rate (TK per RM)" />
+
+  <button onclick="calculate()">Calculate</button>
+
+  <div class="result" id="result">Result: 0 TK</div>
+</div>
+
+<script>
+  function calculate() {
+    let rm = parseFloat(document.getElementById('rm').value) || 0;
+    let rate = parseFloat(document.getElementById('rate').value) || 0;
+
+    let base = rm * rate;
+    let total = base * 1.08; // fixed 8%
+
+    document.getElementById('result').innerText = "Result: " + total.toFixed(2) + " TK";
+  }
+
+  // Trigger calculation on Enter key
+  document.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+      calculate();
+    }
+  });
+</script>
+
+</body>
+</html>
