@@ -1,100 +1,513 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RM to TK Calculator</title>
+  <title>MARS Express Wholesale Price Calculator</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background: linear-gradient(135deg, #ff4d4d, #ff9966);
+      background-image: url("BG.jpeg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
       margin: 0;
-    }
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 14px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-      width: 340px;
+      color: #fff;
       text-align: center;
+      padding: 40px 15px;
+      box-sizing: border-box;
     }
-    h1 {
-      font-size: 22px;
-      margin-bottom: 8px;
-      background: linear-gradient(90deg, #ff4d4d, #ffcc00, #00c3ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: bold;
+
+    .box {
+      background: rgba(19, 182, 117, 0.477);
+      border-radius: 12px;
+      padding: 25px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-    h2 {
-      margin-bottom: 15px;
-      font-size: 16px;
-      color: #333;
-    }
+
     input {
+      padding: 12px;
       width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-    button {
-      background: linear-gradient(90deg, #ff4d4d, #ff9966);
-      color: white;
+      font-size: 18px;
       border: none;
-      padding: 10px 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #fff;
+      color: #ff4d4d;
+      border: none;
+      padding: 12px 20px;
       border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
+      margin-top: 15px;
+      font-weight: bold;
     }
+
     button:hover {
-      opacity: 0.9;
+      background-color: #ffe6e6;
     }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
     .result {
+      font-size: 20px;
       margin-top: 20px;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+
+    .info {
+      font-size: 14px;
+      margin-top: 15px;
+      color: yellow;
+      line-height: 1.5;
+    }
+
+    .wholesale-info {
+      background: rgba(0, 0, 0, 0.25);
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.8;
+      margin: 15px 0;
+    }
+
+    .warning {
+      display: none;
+      background: #ffe4e4;
+      color: #b00020;
+      border: 1px solid #ff5555;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    .weight-calculator {
+      margin-top: 22px;
+      padding: 18px 12px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.22);
+    }
+
+    .weight-calculator h2 {
+      font-size: 20px;
+      margin: 0 0 8px;
+    }
+
+    .weight-calculator p {
+      font-size: 14px;
+      margin: 0 0 8px;
+    }
+
+    .weight-calculator input {
+      box-sizing: border-box;
+      width: 90%;
+    }
+
+    .weight-result {
+      margin-top: 14px;
       font-size: 18px;
       font-weight: bold;
-      color: #1e3c72;
+      min-height: 24px;
+      line-height: 1.6;
+    }
+
+    .weight-calculator small {
+      display: block;
+      margin-top: 8px;
+      color: #fff3b0;
+    }
+
+    .final-button {
+      background-color: #ffd700;
+      color: #222;
+      width: 100%;
+    }
+
+    .final-button:hover {
+      background-color: #ffe866;
+    }
+
+    .total-price {
+      display: block;
+      color: #ffe866;
+      font-size: 28px;
+      margin-top: 10px;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #fff;
+      opacity: 0.9;
     }
   </style>
 </head>
+
 <body>
 
-<div class="card">
-  <h1>MARS Express Wholesale Pricing</h1>
-  <h2>RM → TK Calculator (+8%)</h2>
+  <div class="box">
 
-  <input type="number" id="rm" placeholder="Enter RM amount" />
-  <input type="number" id="rate" value="32" placeholder="Rate (TK per RM)" />
+    <h1>
+      <img src="logo.jpg"
+           height="100"
+           width="100"
+           style="border-radius: 50%;"
+           alt="MARS Express Logo">
 
-  <button onclick="calculate()">Calculate</button>
+      <br>
+      MARS Express
+      <br>
+      Wholesale Price Calculator
+    </h1>
 
-  <div class="result" id="result">Result: 0 TK</div>
-</div>
+    <p>
+      Exchange Rate:
+      <b>1 RM = <span id="displayRate"></span> Tk</b>
+    </p>
 
-<script>
-  function calculate() {
-    let rm = parseFloat(document.getElementById('rm').value) || 0;
-    let rate = parseFloat(document.getElementById('rate').value) || 0;
+    <div class="wholesale-info">
+      <b>Wholesale Pricing Policy</b>
+      <br>
+      RM 1,000 and above — 8% Service Charge
+      <br>
+      Below RM 1,000 — 12% Service Charge
+    </div>
 
-    let base = rm * rate;
-    let total = base * 1.08; // fixed 8%
+    <input type="number"
+           id="rmValue"
+           placeholder="Enter total order amount in RM"
+           min="0.01"
+           step="0.01">
 
-    document.getElementById('result').innerText = "Result: " + total.toFixed(2) + " TK";
-  }
+    <div class="warning" id="warningMessage" role="alert">
+      ⚠️ Minimum order of RM 1,000 is required to qualify
+      for the 8% wholesale rate.
+      Orders below RM 1,000 will be calculated at 12%.
+    </div>
 
-  // Trigger calculation on Enter key
-  document.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-      calculate();
+    <br>
+
+    <button onclick="convert()">
+      Calculate Price
+    </button>
+
+    <div class="result" id="result"></div>
+
+    <div class="info">
+      The price excludes shipping costs.
+      A weight charge of 1,000 Tk per KG will apply.
+    </div>
+
+    <!-- Estimated Weight Charge Calculator -->
+
+    <div class="weight-calculator">
+
+      <h2>Estimated Weight Charge</h2>
+
+      <p>
+        Enter the total product weight to estimate
+        the shipping charge.
+      </p>
+
+      <input type="number"
+             id="weightValue"
+             placeholder="Enter weight in grams"
+             min="1"
+             step="1">
+
+      <button onclick="calculateWeightCharge()">
+        Calculate Weight Charge
+      </button>
+
+      <div class="weight-result" id="weightResult">
+        Estimated charge will appear here.
+      </div>
+
+      <small>Rate: 1 KG = 1,000 Tk</small>
+
+    </div>
+
+    <!-- Final Price Calculator -->
+
+    <div class="weight-calculator" aria-live="polite">
+
+      <h2>Final Price (Including Weight)</h2>
+
+      <button class="final-button"
+              onclick="calculateFinalPrice()">
+        Calculate Final Price
+      </button>
+
+      <div class="weight-result" id="finalResult">
+        Press Calculate Final Price to see the total.
+      </div>
+
+    </div>
+
+    <div class="footer">
+      © MARS Express | Wholesale Service
+      <br>
+      Shop Today Smile Tomorrow.
+    </div>
+
+  </div>
+
+  <script>
+
+    // ===================================
+    // WHOLESALE CALCULATOR SETTINGS
+    // ===================================
+
+    const exchangeRate = 32.30;
+    const minimumWholesaleOrder = 1000;
+    const wholesaleRate = 0.08;
+    const belowMinimumRate = 0.12;
+    const weightRatePerKG = 1000;
+
+    document.getElementById("displayRate").textContent =
+      exchangeRate.toFixed(2);
+
+    const rmInput = document.getElementById("rmValue");
+    const weightInput = document.getElementById("weightValue");
+
+    const priceOutput = document.getElementById("result");
+    const weightOutput = document.getElementById("weightResult");
+    const finalOutput = document.getElementById("finalResult");
+
+    const warningMessage =
+      document.getElementById("warningMessage");
+
+    let calculatedPrice = null;
+    let calculatedWeight = null;
+
+    const formatTk = value =>
+      Math.round(value).toLocaleString("en-BD", {
+        maximumFractionDigits: 0
+      });
+
+    // ===================================
+    // CHECK WHOLESALE MINIMUM ORDER
+    // ===================================
+
+    function checkMinimumOrder() {
+
+      const rm = Number(rmInput.value);
+
+      if (
+        rmInput.value.trim() !== "" &&
+        Number.isFinite(rm) &&
+        rm > 0 &&
+        rm < minimumWholesaleOrder
+      ) {
+
+        warningMessage.style.display = "block";
+
+      } else {
+
+        warningMessage.style.display = "none";
+
+      }
     }
-  });
-</script>
+
+    // ===================================
+    // SERVICE CHARGE PERCENTAGE
+    // ===================================
+
+    function getServiceRate(rm) {
+
+      if (rm < minimumWholesaleOrder) {
+        return belowMinimumRate;
+      }
+
+      return wholesaleRate;
+    }
+
+    // ===================================
+    // PRODUCT PRICE CALCULATION
+    // ===================================
+
+    function getProductPrice(rm) {
+
+      const rate = getServiceRate(rm);
+
+      return Math.round(
+        rm * exchangeRate * (1 + rate)
+      );
+    }
+
+    function convert() {
+
+      const rm = Number(rmInput.value);
+
+      checkMinimumOrder();
+
+      if (
+        !rmInput.value.trim() ||
+        !Number.isFinite(rm) ||
+        rm <= 0
+      ) {
+
+        calculatedPrice = null;
+
+        priceOutput.textContent =
+          "Please enter a valid RM amount.";
+
+        clearFinalPrice();
+
+        return;
+      }
+
+      const rate = getServiceRate(rm);
+
+      const percentage = Math.round(rate * 100);
+
+      calculatedPrice = getProductPrice(rm);
+
+      priceOutput.innerHTML = `
+        Service Charge: ${percentage}%
+        <br>
+        💵 Product Price:
+        ${formatTk(calculatedPrice)} Tk
+        <br>
+        <small>(Excluding weight charge)</small>
+      `;
+
+      clearFinalPrice();
+    }
+
+    // ===================================
+    // WEIGHT CHARGE CALCULATION
+    // ===================================
+
+    function calculateWeightCharge() {
+
+      const grams = Number(weightInput.value);
+
+      if (
+        !weightInput.value.trim() ||
+        !Number.isFinite(grams) ||
+        grams <= 0
+      ) {
+
+        calculatedWeight = null;
+
+        weightOutput.textContent =
+          "Please enter a valid weight in grams.";
+
+      } else {
+
+        calculatedWeight = Math.round(
+          (grams / 1000) * weightRatePerKG
+        );
+
+        weightOutput.textContent =
+          `Estimated Weight Charge:
+          ${formatTk(calculatedWeight)} Tk`;
+      }
+
+      clearFinalPrice();
+    }
+
+    // ===================================
+    // FINAL PRICE CALCULATION
+    // ===================================
+
+    function calculateFinalPrice() {
+
+      if (
+        calculatedPrice === null ||
+        calculatedWeight === null
+      ) {
+
+        finalOutput.textContent =
+          "Please calculate both product price and weight charge first.";
+
+        return;
+      }
+
+      const totalPrice =
+        calculatedPrice + calculatedWeight;
+
+      finalOutput.innerHTML = `
+        Product Price:
+        ${formatTk(calculatedPrice)} Tk
+        <br>
+        Weight Charge:
+        ${formatTk(calculatedWeight)} Tk
+        <br>
+        <span class="total-price">
+          Total: ${formatTk(totalPrice)} Tk
+        </span>
+      `;
+    }
+
+    function clearFinalPrice() {
+
+      finalOutput.textContent =
+        "Press Calculate Final Price to see the total.";
+    }
+
+    // ===================================
+    // RESET WHEN INPUT CHANGES
+    // ===================================
+
+    rmInput.addEventListener("input", () => {
+
+      calculatedPrice = null;
+
+      priceOutput.textContent = "";
+
+      checkMinimumOrder();
+
+      clearFinalPrice();
+    });
+
+    weightInput.addEventListener("input", () => {
+
+      calculatedWeight = null;
+
+      weightOutput.textContent =
+        "Estimated charge will appear here.";
+
+      clearFinalPrice();
+    });
+
+    // ENTER KEY SUPPORT
+
+    rmInput.addEventListener("keydown", event => {
+
+      if (event.key === "Enter") {
+        convert();
+      }
+    });
+
+    weightInput.addEventListener("keydown", event => {
+
+      if (event.key === "Enter") {
+        calculateWeightCharge();
+      }
+    });
+
+  </script>
 
 </body>
 </html>
